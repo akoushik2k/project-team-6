@@ -3,7 +3,7 @@ import json
 import time
 
 # GitHub token for authentication (replace with your actual token)
-GITHUB_TOKEN = "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"
+GITHUB_TOKEN = ""
 
 # HTTP headers including authorization and required content type
 HEADERS = {
