@@ -1,0 +1,38 @@
+erDiagram
+    USER ||--o{ ISSUE : creates
+    USER ||--o{ EVENT : authors
+    ISSUE ||--o{ EVENT : contains
+    ISSUE ||--o{ ISSUE_LABEL : tagged_with
+    LABEL ||--o{ ISSUE_LABEL : appears_as
+    EVENT ||--|| LABEL : optional_label
+
+    USER {
+        string login
+    }
+
+    ISSUE {
+        int number
+        string title
+        string text
+        string state
+        datetime created_date
+        datetime updated_date
+        datetime closed_date
+        string timeline_url
+    }
+
+
+    LABEL {
+        string name
+    }
+
+    EVENT {
+        string event_type
+        string event_date
+        string comment
+    }
+
+    ISSUE_LABEL {
+        int issue_number
+        string label_name
+    }
