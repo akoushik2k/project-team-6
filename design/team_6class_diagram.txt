@@ -63,7 +63,7 @@ classDiagram
         + BASE_URL : str
         + fetch_issue_timeline(issue_number: any) : [any] 
         + format_issue(issue: any) : any
-        + fetch_all_issues : any
+        + fetch_all_issues() : any
     }
     run.py --> config.py
     run.py --> Analysis
