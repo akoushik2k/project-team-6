@@ -1,0 +1,75 @@
+---
+config:
+  look: classic
+  theme: default
+---
+classDiagram
+    class config.py {
+	    - _config : any
+	    - _int_config(path: Optional[str])
+	    - _get_default_path()
+	    + get_parameter(parameter_name: str, default: Optional[str]) : any
+	    + convert_to_typed_value(value: any) : str
+	    + set_parameter(name: str, value: any)
+	    + overwrite_from_args(args: any)
+    }
+    class DataLoader {
+	    + data_path : str
+	    + \_\_init\_\_() : str
+	    + get_issues() : List[Issue]
+	    - _load() : List[Issue]
+    }
+    class Event {
+	    + author : Optional[str]
+	    + comment : Optional[str]
+	    + event_date : Optional[datetime]
+	    + event_type : Optional[str]
+	    + label : Optional[str]
+	    + \_\_int\_\_(jobj: any)
+	    + from_json(jobj: any)
+    }
+    class Analysis {
+	    + USER : str
+	    + \_\_init\_\_() : str
+	    + run()
+    }
+    class Issue {
+	    + assignees : List[str]
+	    + created_date : Optional[datetime]
+	    + creator : Optional[str]
+	    + events : List[Event]
+	    + labels : List[str]
+	    + number : int
+	    + state : Optional[State]
+	    + text : Optional[str]
+	    + timeline_url : Optional[str]
+	    + title : Optional[str]
+	    + updated_date : Optional[datetime]
+	    + url : Optional[str]
+        + \_\_int\_\_(jobj: any)
+	    + from_json(jobj: any)
+    }
+    class State~enumeration~ {
+	    + open: str
+	    + close: str
+    }
+    class run.py {
+	    + args : any
+	    + parse_args()
+    }
+    class data_generator.py {
+        + GITHUB_TOKEN : str
+        + REPO : str
+        + BASE_URL : str
+        + fetch_issue_timeline(issue_number: any) : [any] 
+        + format_issue(issue: any) : any
+        + fetch_all_issues : any
+    }
+    run.py --> config.py
+    run.py --> Analysis
+    Analysis --> DataLoader
+    Analysis o-- Issue
+    Analysis --> config.py
+    DataLoader o-- Issue
+    Issue o-- Event
+    Issue --> State
