@@ -17,25 +17,63 @@ BASE_URL = f"https://api.github.com/repos/{REPO}/issues"
 
 def fetch_issue_timeline(issue_number):
     """
-    Fetches the event timeline of a specific issue.
-
-    Args:
-        issue_number (int): The GitHub issue number.
-
-    Returns:
-        list: A list of timeline events for the issue.
+    Fetches and filters the event timeline of a specific issue to include only:
+    - event_type (e.g., commented, closed, labeled, etc.)
+    - author (actor.login)
+    - event_date (created_at)
+    - optional label (for labeled events)
+    - optional comment (for commented events)
     """
+
     timeline_url = f"https://api.github.com/repos/{REPO}/issues/{issue_number}/timeline"
     headers = HEADERS.copy()
-    # Accept header required for timeline preview API
     headers["Accept"] = "application/vnd.github.mockingbird-preview+json"
 
     response = requests.get(timeline_url, headers=headers)
-    if response.status_code == 200:
-        return response.json()
-    else:
+    if response.status_code != 200:
         print(f"Failed to fetch timeline for issue {issue_number}")
         return []
+
+    try:
+        raw_events = response.json()
+        filtered_events = []
+
+        for event in raw_events:
+            if not isinstance(event, dict):
+                continue
+
+            event_type = event.get("event")
+            created_at = event.get("created_at")
+
+            actor = event.get("actor", {})
+            author = actor.get("login") if isinstance(actor, dict) else None
+
+            filtered_event = {
+                "event_type": event_type,
+                "author": author,
+                "event_date": created_at
+            }
+
+            # Optional: keep the label name if it's a labeled event
+            if event_type == "labeled":
+                label = event.get("label", {})
+                if isinstance(label, dict):
+                    filtered_event["label"] = label.get("name")
+
+            # Optional: keep the comment body if it's a comment event
+            if event_type == "commented":
+                filtered_event["comment"] = event.get("body")
+
+            # Add only relevant events for analysis
+            if event_type in ["commented", "closed", "reopened", "labeled", "mentioned", "referenced", "subscribed", "assigned"]:
+                filtered_events.append(filtered_event)
+
+        return filtered_events
+
+    except Exception as e:
+        print(f"Error parsing timeline for issue #{issue_number}: {e}")
+        return []
+
 
 def format_issue(issue):
     """
