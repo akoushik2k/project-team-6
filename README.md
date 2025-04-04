@@ -1,5 +1,43 @@
-# ENPM611 Project Application Template
+# ENPM611 Project Team 6
 
+## Planned Analysis
+We have identified three core areas of GitHub issue analysis for the `python-poetry/poetry` repository:
+
+1. **Cycle Time Analysis**  
+   Calculate the cycle time of issues that are:
+   - Labeled as `kind/bug`
+   - Marked as `state: closed`
+   - Including repeated/related bugs (identified via title similarity or labels)
+   
+2. **Resource Utilization**  
+   Identify all contributors involved in each issue. This includes:
+   - Issue creators
+   - Assignees
+   - Commenters and participants in the issue timeline (event actors)
+   - Summarize total contributor involvement across all issues
+
+3. **First Response Time Analysis**  
+   Measure how quickly each issue received a response:
+   - Compute the time from issue creation to the first external interaction (comment, mention, reference, or assignment)
+   - Helps identify community responsiveness to incoming issues
+
+---
+
+## 📁 Milestone 1 Files
+
+The following files have been created and submitted as part of Milestone 1:
+
+### 🔢 Data
+- `data/poetry.json` — Raw GitHub issue data with timeline events, labels, metadata
+- `data/poetry_trimmed.json` — Cleaned version of the above containing only relevant event data
+
+### 🧱 Diagrams
+- `design/team_6class_diagram.svg` — Class diagram (UML format)
+- `design/team_6class_diagram.txt` — Text version of the class diagram
+- `design/team_6erd.svg` — Entity-Relationship (ER) Diagram (SVG format)
+- `design/team_6erd.txt` — Text version of the ER diagram
+
+---
 This is the template for the ENPM611 class project. Use this template in conjunction with the provided data to implement an application that analyzes GitHub issues for the [poetry](https://github.com/python-poetry/poetry/issues) Open Source project and generates interesting insights.
 
 This application template implements some of the basic functions:
