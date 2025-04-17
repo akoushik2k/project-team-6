@@ -16,7 +16,7 @@
 
 
 ## Repository Structure
-
+```
 project-team-6/
 ├── .github/            ← CI workflow (GitHub Actions)
 │   └── workflows/
@@ -36,7 +36,7 @@ project-team-6/
 ├── example_analysis.py ← simple demo / template (feature 0)
 ├── requirements.txt    ← Python dependencies
 └── README.md           ← you are here 🚀
-
+```
 ## ‼️ mplcyberpunk ‼️
 
 Make sure you grab the latest version of mplcyberpunk.
