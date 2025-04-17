@@ -1,5 +1,42 @@
 # ENPM611 Project Team 6
 
+## Contents
+
+- [Repository Structure](#repository-structure)
+- [‼️ mplcyberpunk ‼️ (fix)](#️-mplcyberpunk-️)
+- [Planned Analysis](#planned-analysis)
+- [📁 Milestone&nbsp;1 Files](#-milestone-1-files)
+- [📁 Milestone&nbsp;2 Files](#-milestone-2-files)
+- [Setup](#setup)
+  - [Install dependencies](#install-dependencies)
+  - [Download and configure the data file](#download-and-configure-the-data-file)
+  - [Run an analysis](#run-an-analysis)
+- [VSCode run configuration](#vscode-run-configuration)
+- [What your commands produce](#what-your-commands-produce)
+
+
+## Repository Structure
+
+project-team-6/
+├── .github/            ← CI workflow (GitHub Actions)
+│   └── workflows/
+│       └── python-app.yml
+├── .vscode/            ← handy launch / debug settings (optional)
+├── data/               ← raw + cleaned GitHub‑issues JSON
+├── design/             ← UML & ER diagrams (SVG + TXT)
+├── misc/               ← screenshots referenced in the README
+├── Utils/              ← generic helpers (e.g. data_loader)
+├── models/             ← Python dataclasses / enums for issues
+├── analyses/           ← **feature‑specific analysis modules**
+│   ├── cycle_time_analysis.py
+│   ├── top_twenty_analysis.py
+│   └── first_response_time.py
+├── config/             ← runtime config + secrets template
+├── run.py              ← command‑line entry point (`--feature N`)
+├── example_analysis.py ← simple demo / template (feature 0)
+├── requirements.txt    ← Python dependencies
+└── README.md           ← you are here 🚀
+
 ## ‼️ mplcyberpunk ‼️
 
 Make sure you grab the latest version of mplcyberpunk.
@@ -39,12 +76,17 @@ We have identified three core areas of GitHub issue analysis for the `python-poe
    - Marked as `state: closed`
    - Including repeated/related bugs (identified via title similarity or labels)
 
-2. **Resource Utilization**  
-   Identify all contributors involved in each issue. This includes:
-   - Issue creators
-   - Assignees
-   - Commenters and participants in the issue timeline (event actors)
-   - Summarize total contributor involvement across all issues
+2. **Top‑Twenty Analysis**
+   - Builds a *real‑contributors* set  
+     • Issue creators • Assignees • Commenters • Closers  
+     • Removes any login containing “bot” and collapses case/spacing duplicates
+   - Generates three interactive bar‑charts 
+     1. **Top 20 Contributors** – total issues involved  
+     2. **Top 20 Issue Creators** – issues opened  
+     3. **Top 20 Closers** – issues closed
+   - Hovering a bar shows **login + exact count**
+   - Console prints overall contributor count, top names, and counts
+
 
 3. **First Response Time Analysis**  
    Measure how quickly each issue received a response:
@@ -69,6 +111,14 @@ The following files have been created and submitted as part of Milestone 1:
 - `design/team_6erd.svg` — Entity-Relationship (ER) Diagram (SVG format)
 - `design/team_6erd.txt` — Text version of the ER diagram
 
+## 📁 Milestone 2 Files
+
+### Analysis
+
+- `analysis/cycle_time_analysis.py` — Feature 1
+- `analysis/top_twenty_analysis.py` — Feature 2
+- `analysis/first_response_time_analysis.py` — Feature 3
+
 ---
 This is the template for the ENPM611 class project. Use this template in conjunction with the provided data to implement an application that analyzes GitHub issues for the [poetry](https://github.com/python-poetry/poetry/issues) Open Source project and generates interesting insights.
 
@@ -85,7 +135,7 @@ In addition to the utility functions, an example analysis has also been implemen
 
 ## Setup
 
-To get started, your team should create a fork of this repository. Then, every team member should clone your repository to their local computer. 
+To start using the code clone the repository to your system and follow the steps below:
 
 ### Install dependencies
 
@@ -93,6 +143,35 @@ In the root directory of the application, create a virtual environment, activate
 
 ```bash
 pip install -r requirements.txt
+```
+
+## ‼️ mplcyberpunk ‼️
+
+Make sure you grab the latest version of mplcyberpunk.
+Older versions will result in **IsADirectoryError: [Errno 21] Is a directory**
+
+If the issue persists even after installing the latest version. In -
+
+``` cmd
+[path_to_your_virtual_pt_env]/lib/python3.9/site-packages/mplcyberpunk/__init__.py
+```
+
+Change :
+
+```py
+with importlib.resources.path("mplcyberpunk", "data") as data_path:
+    cyberpunk_stylesheets = mpl.style.core.read_style_directory(data_path)
+    mpl.style.core.update_nested_dict(mpl.style.library, cyberpunk_stylesheets)
+```
+
+To :
+
+```py
+from importlib.resources import files
+
+data_path = files("mplcyberpunk").joinpath("data")
+cyberpunk_stylesheets = mpl.style.core.read_style_directory(data_path)
+mpl.style.core.update_nested_dict(mpl.style.library, cyberpunk_stylesheets)
 ```
 
 ### Download and configure the data file
@@ -104,8 +183,10 @@ Download the data file (in `json` format) from the project assignment in Canvas 
 With everything set up, you should be able to run the existing example analysis:
 
 ```bash
-python run.py --feature 0
+python run.py --feature <Feature_Number>
 ```
+
+There are only three features starting from 1.
 
 That will output basic information about the issues to the command line.
 
@@ -122,7 +203,8 @@ python run.py --feature 1
 ```
 
 ![Image showing the cycle time - figure 1](./misc/1.1.png)
-![Image showing the cycle time - figure 2](./misc/1.2.png)
+![Image showing Top Repeated Bugs and their issue Count - figure 2](./misc/1.2.png)
+
 
 ```bash
 python run.py --feature 2
