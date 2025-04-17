@@ -19,10 +19,19 @@ class TopTwentyAnalysis:
     BOT_REGEX = r"\[bot\]"
     TOP_N     = 20
 
-    # ---------------------------------------------------------------
+    
     def run(self):
-        plt.style.use("cyberpunk")        # cool dark background
+        """
+        The main entry point for this analysis.
+        It loads issues, processes data, and generates visualizations.
+        It also prints out the top contributors and their issue counts.
+              
+        """
+        
+        # Plot style
+        plt.style.use("cyberpunk")
 
+        # Load issues
         issues: List[Issue] = DataLoader().get_issues()
 
         # =====  build contributor → issue‑set map  =================
@@ -37,6 +46,7 @@ class TopTwentyAnalysis:
             for c in participants:
                 contrib_issues.setdefault(c, set()).add(issue.number)
 
+        # Remove bots from the contributor set
         df_contrib = (
             pd.DataFrame(
                 [{"contributor": c, "num_issues": len(s)}
@@ -120,6 +130,16 @@ class TopTwentyAnalysis:
     # ===============================================================
     def _plot_barh(self, df: pd.DataFrame, *, value_col: str, label_col: str,
                    title: str, xlabel: str, color: str):
+        """
+        Helper function to create a horizontal bar chart with hover tooltips.
+        :param df: DataFrame containing the data to plot
+        :param value_col: Column name for the values to plot
+        :param label_col: Column name for the labels
+        :param title: Title of the plot
+        :param xlabel: X-axis label
+        :param color: Color of the bars
+        """
+        
         fig, ax = plt.subplots(figsize=(10, 6))
         bars = ax.barh(df[label_col], df[value_col], color=color)
         ax.set_title(title)

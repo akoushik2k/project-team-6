@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 import mplcyberpunk
-import mplcursors                # hover‑tooltips
+import mplcursors              
 from typing import List
 
 from config import config
@@ -16,27 +16,33 @@ class FirstResponseTimeAnalysis:
     """
 
     def __init__(self):
+        # Parameter is passed in via command line (--user)
         self.USER = config.get_parameter("user")
 
     def run(self):
+        # Plot style
         plt.style.use("cyberpunk")
-
+        
+        # Load issues
         issues: List[Issue] = DataLoader().get_issues()
 
         response_times = []
         label_groups = []
 
+        # Filter issues: closed and not created by the user
         for issue in issues:
             if not issue.created_date:
                 continue
-
+            
+            # Filter out issues created by the user
             response_events = [
                 e for e in issue.events
                 if e.event_type in {"commented", "referenced", "assigned", "mentioned"}
                 and e.event_date
                 and e.author != issue.creator
             ]
-
+            
+            
             if response_events:
                 first_event = min(response_events, key=lambda e: e.event_date)
                 response_time = (first_event.event_date - issue.created_date).total_seconds() / ( 3600 * 24 ) # in days

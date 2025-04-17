@@ -20,11 +20,11 @@ class CycleTimeAnalysis:
         """
         Constructor: You can add additional parameters if needed.
         """
-        # Optional parameter from config
+        # Parameter is passed in via command line (--user)
         self.USER = config.get_parameter("user")
 
     def run(self):
-        # Apply the cyberpunk style for a more appealing aesthetic
+        #Plot style
         plt.style.use("cyberpunk")
 
         # 1) Load issues
@@ -95,10 +95,10 @@ class CycleTimeAnalysis:
         plt.xlabel("Cycle Time (days)")
         plt.ylabel("Count of Issues")
 
-        # Use mplcyberpunk's glow effects
+        # Effects for the histogram
         mplcyberpunk.add_glow_effects()
 
-        # Make the histogram interactive with mplcursors
+        # Interactive Histogram
         cursor = mplcursors.cursor(patches, hover=True)
 
         @cursor.connect("add")
@@ -140,7 +140,6 @@ class CycleTimeAnalysis:
         plt.tight_layout()
         mplcyberpunk.add_glow_effects()
 
-        # Show both figures now, with the histogram being interactive
         plt.show()
 
 
