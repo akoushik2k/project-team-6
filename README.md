@@ -3,12 +3,12 @@
 ## Contents
 
 - [Repository Structure](#repository-structure)
-- [‼️ mplcyberpunk ‼️ (fix)](#️-mplcyberpunk-️)
 - [Planned Analysis](#planned-analysis)
 - [📁 Milestone&nbsp;1 Files](#-milestone-1-files)
 - [📁 Milestone&nbsp;2 Files](#-milestone-2-files)
 - [Setup](#setup)
   - [Install dependencies](#install-dependencies)
+  - [‼️ mplcyberpunk ‼️ (fix)](#️-mplcyberpunk-️)
   - [Download and configure the data file](#download-and-configure-the-data-file)
   - [Run an analysis](#run-an-analysis)
 - [VSCode run configuration](#vscode-run-configuration)
