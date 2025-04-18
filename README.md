@@ -37,34 +37,6 @@ project-team-6/
 ├── requirements.txt    ← Python dependencies
 └── README.md           ← you are here 🚀
 ```
-## ‼️ mplcyberpunk ‼️
-
-Make sure you grab the latest version of mplcyberpunk.
-Older versions will result in **IsADirectoryError: [Errno 21] Is a directory**
-
-If the issue persists even after installing the latest version. In -
-
-``` cmd
-[path_to_your_virtual_pt_env]/lib/python3.9/site-packages/mplcyberpunk/__init__.py
-```
-
-Change :
-
-```py
-with importlib.resources.path("mplcyberpunk", "data") as data_path:
-    cyberpunk_stylesheets = mpl.style.core.read_style_directory(data_path)
-    mpl.style.core.update_nested_dict(mpl.style.library, cyberpunk_stylesheets)
-```
-
-To :
-
-```py
-from importlib.resources import files
-
-data_path = files("mplcyberpunk").joinpath("data")
-cyberpunk_stylesheets = mpl.style.core.read_style_directory(data_path)
-mpl.style.core.update_nested_dict(mpl.style.library, cyberpunk_stylesheets)
-```
 
 ## Implementation
 
