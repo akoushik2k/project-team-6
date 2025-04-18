@@ -3,7 +3,7 @@
 ## Contents
 
 - [Repository Structure](#repository-structure)
-- [Planned Analysis](#planned-analysis)
+- [Implementation](#Implementation)
 - [📁 Milestone&nbsp;1 Files](#-milestone-1-files)
 - [📁 Milestone&nbsp;2 Files](#-milestone-2-files)
 - [Setup](#setup)
@@ -66,32 +66,49 @@ cyberpunk_stylesheets = mpl.style.core.read_style_directory(data_path)
 mpl.style.core.update_nested_dict(mpl.style.library, cyberpunk_stylesheets)
 ```
 
-## Planned Analysis
+## Implementation
 
 We have identified three core areas of GitHub issue analysis for the `python-poetry/poetry` repository:
 
-1. **Cycle Time Analysis**  
-   Calculate the cycle time of issues that are:
-   - Labeled as `kind/bug`
-   - Marked as `state: closed`
-   - Including repeated/related bugs (identified via title similarity or labels)
+1. **Cycle‑Time Analysis**
+   - **Computes** cycle time (in days) for every issue that is  
+     • labeled **kind/bug** & **state = closed**  
+     • close date taken from first `closed` event (falls back to `updated_date`)
+   - **Detects** repeated / related bugs  
+     • normalises titles and tallies duplicates  
+     • lists the 10 most‑repeated bug titles
+   - **Visual output**
+     - Histogram of cycle times with an interpolated trend line (hover shows bin counts)
+     - Bar‑chart of the **top repeated bug titles**
+   - **Console extras**
+     - Prints overall **average** and **median** cycle time
+     - Flags the fastest & slowest 5 % of fixes (issue # + days)
+
 
 2. **Top‑Twenty Analysis**
-   - Builds a *real‑contributors* set  
+   - **Builds** a set of real contributors for every issue  
      • Issue creators • Assignees • Commenters • Closers  
-     • Removes any login containing “bot” and collapses case/spacing duplicates
-   - Generates three interactive bar‑charts 
-     1. **Top 20 Contributors** – total issues involved  
+     • Any login containing “bot” is excluded; case/space duplicates are merged
+   - **Creates** three interactive bar‑charts  
+     1. **Top 20 Contributors** – total issues involved (any role)  
      2. **Top 20 Issue Creators** – issues opened  
      3. **Top 20 Closers** – issues closed
-   - Hovering a bar shows **login + exact count**
-   - Console prints overall contributor count, top names, and counts
+   - **Console output**  
+     • Total number of real contributors  
+     • Name and count of the single most active contributor, creator, and closer
 
 
-3. **First Response Time Analysis**  
-   Measure how quickly each issue received a response:
-   - Compute the time from issue creation to the first external interaction (comment, mention, reference, or assignment)
-   - Helps identify community responsiveness to incoming issues
+
+3. **First‑Response Time Analysis**
+   - **Calculates** the first‑response delay for every issue  
+     • time (in hours) from creation → first external action  
+     • *self‑responses by the issue author are ignored*
+   - **Visual output**
+     - Histogram of first‑response times (all issues)
+     - Bar‑chart of **average response time by label**
+     - Line plot of **monthly trend** in average response time
+   - **Highlights** the **5 slowest‑responded issues** (issue # + hours)
+   - **Console stats** — prints overall **average** and **median** first‑response times
 
 ---
 
