@@ -187,21 +187,21 @@ To make the application easier to debug, runtime configurations are provided to 
 The `.vscode/settings.json` also customizes the VSCode user interface sligthly to make navigation and debugging easier. But that is a matter of preference and can be turned off by removing the appropriate settings.
 
 ## Instructions For Running The Unit Tests
-The unit tests are written using the pytest framework, along with pytest-cov to generate coverage metrics. The tests cover the following modules:
+The unit tests are written using the `pytest` framework, along with `pytest-cov` to generate coverage metrics. The tests cover the following modules:
 * analysis
 * config
 * models
 * utils
 * run
 
-Note that the test module and the __init__.py files are excluded from coverage. You can modify this behavior by editing the .coveragerc configuration file. 
+Note that the `tests` module and the `__init__.py` files are excluded from coverage. You can modify this behavior by editing the `.coveragerc` configuration file. 
 
 To run the tests and generate coverage metrics, execute the following command from the root directory:
 ```bash
 pytest
 ```
 
-The pytest.ini file defines the test modules to run, the testpath, and other pytest configurations. Alternatively, you can run the following command to get coverage metrics for all modules in the project:
+The `pytest.ini` file defines the `testpath`, and other `pytest configurations`. Alternatively, you can run the following command to get coverage metrics for all modules in the project:
 ```bash
 pytest --cov=.
 ```
