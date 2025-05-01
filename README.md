@@ -188,6 +188,7 @@ The `.vscode/settings.json` also customizes the VSCode user interface sligthly t
 
 ## Instructions For Running The Unit Tests
 > make sure `pytest` and `pytest-cov` packages are available in your python environment
+
 The unit tests are written using the `pytest` framework, along with `pytest-cov` to generate coverage metrics. The tests cover the following modules:
 * analysis
 * config
