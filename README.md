@@ -6,12 +6,14 @@
 - [Implementation](#Implementation)
 - [📁 Milestone&nbsp;1 Files](#-milestone-1-files)
 - [📁 Milestone&nbsp;2 Files](#-milestone-2-files)
-- [📁 Milestone&nbsp;3 Files](#-milestone-3-files)
 - [Setup](#setup)
   - [Install dependencies](#install-dependencies)
   - [‼️ mplcyberpunk ‼️ (fix)](#️-mplcyberpunk-️)
   - [Download and configure the data file](#download-and-configure-the-data-file)
-  - [Testing](#testing)
+  - [Run an analysis](#run-an-analysis)
+- [Instructions for running the unit tests](#instructions-for-running-the-unit-tests)
+- [VSCode run configuration](#vscode-run-configuration)
+- [What your commands produce](#what-your-commands-produce)
 
 
 ## Repository Structure
@@ -27,34 +29,13 @@ project-team-6/
 ├── Utils/              ← generic helpers (e.g. data_loader)
 ├── models/             ← Python dataclasses / enums for issues
 ├── analyses/           ← **feature‑specific analysis modules**
-|   ├── example_analysis.py ← simple demo / template (feature 0)
 │   ├── cycle_time_analysis.py
 │   ├── top_twenty_analysis.py
 │   └── first_response_time.py
-├── tests/              ← **feature‑specific testing module**
-│   └── analysis/
-|       ├── _init_.py
-|       ├── test_cycle_time_analysis.py
-|       ├── test_first_response_time_analysis.py
-|       ├── test_top_twenty.py
-|       └── test_example_analysis.py
-│   └── config/
-|       ├── _init_.py
-|       └── test_config.py
-│   └── models/
-|       ├── _init_.py
-|       └── test_model.py
-|   └── Utils/
-|       ├── _init_.py
-|       ├── test_data_generator.py
-|       └── test_data_loader.py
-|   ├── _init_.py
-|   └── test_run.py
 ├── config/             ← runtime config + secrets template
 ├── run.py              ← command‑line entry point (`--feature N`)
+├── example_analysis.py ← simple demo / template (feature 0)
 ├── requirements.txt    ← Python dependencies
-├── .coveragerc 
-├── pytest.ini  
 └── README.md           ← you are here 🚀
 ```
 
@@ -128,14 +109,6 @@ The following files have been created and submitted as part of Milestone 1:
 - `analysis/top_twenty_analysis.py` — Feature 2
 - `analysis/first_response_time_analysis.py` — Feature 3
 
-## 📁 Milestone 3 Files
-
-### Test Files
-
-- `tests/analysis/test_cycle_time_analysis.py` — Feature 1
-- `tests/analysis/test_top_twenty_analysis.py` — Feature 2
-- `tests/analysis/test_first_response_time_analysis.py` — Feature 3
-
 ---
 This is the template for the ENPM611 class project. Use this template in conjunction with the provided data to implement an application that analyzes GitHub issues for the [poetry](https://github.com/python-poetry/poetry/issues) Open Source project and generates interesting insights.
 
@@ -195,25 +168,7 @@ mpl.style.core.update_nested_dict(mpl.style.library, cyberpunk_stylesheets)
 
 Download the data file (in `json` format) from the project assignment in Canvas and update the `config.json` with the path to the file. Note, you can also specify an environment variable by the same name as the config setting (`ENPM611_PROJECT_DATA_PATH`) to avoid committing your personal path to the repository.
 
-### Testing
-
-We use Python’s `pytest` and `coverage` to ensure at least 90% statement coverage for the `analysis/` modules.
-
-1. Install Coverage
-
-```bash
-pip install coverage
-```
-
-2. Run tests with coverage (tests reside in `test/`):
-```bash
-python -m coverage run -m unittest discover
-```
-3. View terminal coverage report (omit test files):
-```bash
-python3 -m coverage report -m --omit="test/*"
-```
-<!-- ### Run an analysis
+### Run an analysis
 
 With everything set up, you should be able to run the existing example analysis:
 
@@ -230,6 +185,26 @@ That will output basic information about the issues to the command line.
 To make the application easier to debug, runtime configurations are provided to run each of the analyses you are implementing. When you click on the run button in the left-hand side toolbar, you can select to run one of the three analyses or run the file you are currently viewing. That makes debugging a little easier. This run configuration is specified in the `.vscode/launch.json` if you want to modify it.
 
 The `.vscode/settings.json` also customizes the VSCode user interface sligthly to make navigation and debugging easier. But that is a matter of preference and can be turned off by removing the appropriate settings.
+
+## Instructions For Running The Unit Tests
+The unit tests are written using the pytest framework, along with pytest-cov to generate coverage metrics. The tests cover the following modules:
+* analysis
+* config
+* models
+* utils
+* run
+
+Note that the test module and the __init__.py files are excluded from coverage. You can modify this behavior by editing the .coveragerc configuration file. 
+
+To run the tests and generate coverage metrics, execute the following command from the root directory:
+```bash
+pytest
+```
+
+The pytest.ini file defines the test modules to run, the testpath, and other pytest configurations. Alternatively, you can run the following command to get coverage metrics for all modules in the project:
+```bash
+pytest --cov=.
+```
 
 ## What your commands produce
 
@@ -255,4 +230,4 @@ python run.py --feature 3
 
 ![Image showing the response times in days - figure 1](./misc/3.1.png)
 ![Image showing the average response time by label - figure 2](./misc/3.2.png)
-![Image showing the average response time over a period - figure 3](./misc/3.3.png) -->
+![Image showing the average response time over a period - figure 3](./misc/3.3.png)
