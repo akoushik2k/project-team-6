@@ -11,9 +11,7 @@
   - [Install dependencies](#install-dependencies)
   - [‼️ mplcyberpunk ‼️ (fix)](#️-mplcyberpunk-️)
   - [Download and configure the data file](#download-and-configure-the-data-file)
-  - [Run an analysis](#run-an-analysis)
-- [VSCode run configuration](#vscode-run-configuration)
-- [What your commands produce](#what-your-commands-produce)
+  - [Testing](#testing)
 
 
 ## Repository Structure
@@ -29,17 +27,34 @@ project-team-6/
 ├── Utils/              ← generic helpers (e.g. data_loader)
 ├── models/             ← Python dataclasses / enums for issues
 ├── analyses/           ← **feature‑specific analysis modules**
+|   ├── example_analysis.py ← simple demo / template (feature 0)
 │   ├── cycle_time_analysis.py
 │   ├── top_twenty_analysis.py
 │   └── first_response_time.py
-├── analyses/           ← **feature‑specific testing module**
-│   ├── test_cycle_time_analysis.py
-│   ├── test_top_twenty_analysis.py
-│   └── test_first_response_time.py
+├── tests/              ← **feature‑specific testing module**
+│   └── analysis/
+|       ├── _init_.py
+|       ├── test_cycle_time_analysis.py
+|       ├── test_first_response_time_analysis.py
+|       ├── test_top_twenty.py
+|       └── test_example_analysis.py
+│   └── config/
+|       ├── _init_.py
+|       └── test_config.py
+│   └── models/
+|       ├── _init_.py
+|       └── test_model.py
+|   └── Utils/
+|       ├── _init_.py
+|       ├── test_data_generator.py
+|       └── test_data_loader.py
+|   ├── _init_.py
+|   └── test_run.py
 ├── config/             ← runtime config + secrets template
 ├── run.py              ← command‑line entry point (`--feature N`)
-├── example_analysis.py ← simple demo / template (feature 0)
 ├── requirements.txt    ← Python dependencies
+├── .coveragerc 
+├── pytest.ini  
 └── README.md           ← you are here 🚀
 ```
 
@@ -117,9 +132,9 @@ The following files have been created and submitted as part of Milestone 1:
 
 ### Test Files
 
-- `tests/test_cycle_time_analysis.py` — Feature 1
-- `tests/test_top_twenty_analysis.py` — Feature 2
-- `tests/test_first_response_time_analysis.py` — Feature 3
+- `tests/analysis/test_cycle_time_analysis.py` — Feature 1
+- `tests/analysis/test_top_twenty_analysis.py` — Feature 2
+- `tests/analysis/test_first_response_time_analysis.py` — Feature 3
 
 ---
 This is the template for the ENPM611 class project. Use this template in conjunction with the provided data to implement an application that analyzes GitHub issues for the [poetry](https://github.com/python-poetry/poetry/issues) Open Source project and generates interesting insights.
@@ -182,7 +197,7 @@ Download the data file (in `json` format) from the project assignment in Canvas 
 
 ### Testing
 
-We use Python’s `unittest` and `coverage` to ensure at least 90% statement coverage for the `analysis/` modules.
+We use Python’s `pytest` and `coverage` to ensure at least 90% statement coverage for the `analysis/` modules.
 
 1. Install Coverage
 
