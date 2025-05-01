@@ -1,18 +1,14 @@
-
-
 """
 Starting point of the application. This module is invoked from
 the command line to run the analyses.
 """
 
 import argparse
-
-from config import config
-from analysis.example_analysis import ExampleAnalysis
 from analysis.cycle_time_analysis import CycleTimeAnalysis
+from analysis.example_analysis import ExampleAnalysis
 from analysis.first_response_time_analysis import FirstResponseTimeAnalysis
 from analysis.top_twenty_analysis import TopTwentyAnalysis
-
+from config import config
 
 
 def parse_args():
@@ -21,42 +17,55 @@ def parse_args():
     with the python command. The --feature flag must be provided as
     that determines what analysis to run. Optionally, you can pass in
     a user and/or a label to run analysis focusing on specific issues.
-    
+
     You can also add more command line arguments following the pattern
     below.
     """
     ap = argparse.ArgumentParser("run.py")
-    
-    # Required parameter specifying what analysis to run
-    ap.add_argument('--feature', '-f', type=int, required=True,
-                    help='Which of the three features to run')
-    
-    # Optional parameter for analyses focusing on a specific user (i.e., contributor)
-    ap.add_argument('--user', '-u', type=str, required=False,
-                    help='Optional parameter for analyses focusing on a specific user')
-    
-    # Optional parameter for analyses focusing on a specific label
-    ap.add_argument('--label', '-l', type=str, required=False,
-                    help='Optional parameter for analyses focusing on a specific label')
-    
-    return ap.parse_args()
 
+    # Required parameter specifying what analysis to run
+    ap.add_argument(
+        "--feature",
+        "-f",
+        type=int,
+        required=True,
+        help="Which of the three features to run",
+    )
+
+    # Optional parameter for analyses focusing on a specific user (i.e., contributor)
+    ap.add_argument(
+        "--user",
+        "-u",
+        type=str,
+        required=False,
+        help="Optional parameter for analyses focusing on a specific user",
+    )
+
+    # Optional parameter for analyses focusing on a specific label
+    ap.add_argument(
+        "--label",
+        "-l",
+        type=str,
+        required=False,
+        help="Optional parameter for analyses focusing on a specific label",
+    )
+
+    return ap.parse_args()
 
 
 # Parse feature to call from command line arguments
 args = parse_args()
 # Add arguments to config so that they can be accessed in other parts of the application
 config.overwrite_from_args(args)
-    
+
 # Run the feature specified in the --feature flag
 if args.feature == 0:
     ExampleAnalysis().run()
 elif args.feature == 1:
-    CycleTimeAnalysis().run() #call first analysis
+    CycleTimeAnalysis().run()  # call first analysis
 elif args.feature == 2:
-    TopTwentyAnalysis().run() #call second analysis
+    TopTwentyAnalysis().run()  # call second analysis
 elif args.feature == 3:
     FirstResponseTimeAnalysis().run()
-
 else:
-    print('Need to specify which feature to run with --feature flag.')
+    print("Need to specify which feature to run with --feature flag.")

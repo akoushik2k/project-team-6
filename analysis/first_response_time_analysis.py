@@ -122,7 +122,10 @@ class FirstResponseTimeAnalysis:
             
 
         # === Plot 3: Trend Over Time ===
-        df["created_month"] = df["created_date"].dt.to_period("M").astype(str)
+        if df["created_date"].dt.tz is not None:
+            df["created_date"] = df["created_date"].dt.tz_localize(None)
+            df["created_month"] = df["created_date"].dt.to_period("M").astype(str)
+        
         monthly_avg = df.groupby("created_month")["first_response_days"].mean()
 
         if not monthly_avg.empty:
