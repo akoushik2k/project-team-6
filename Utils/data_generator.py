@@ -1,9 +1,12 @@
+from dotenv import load_dotenv
+import os
 import requests
 import json
 import time
 
-# GitHub token for authentication (replace with your actual token)
-GITHUB_TOKEN = ""
+load_dotenv()
+# GitHub token for authentication (populate your .env)
+GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
 
 # HTTP headers including authorization and required content type
 HEADERS = {

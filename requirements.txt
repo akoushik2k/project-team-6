@@ -2,5 +2,9 @@ python-dateutil
 pandas
 matplotlib
 numpy
+requests
 mplcyberpunk
 mplcursors
+python-dotenv
+pytest
+pytest-cov

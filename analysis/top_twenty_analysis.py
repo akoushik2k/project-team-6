@@ -47,13 +47,16 @@ class TopTwentyAnalysis:
                 contrib_issues.setdefault(c, set()).add(issue.number)
 
         # Remove bots from the contributor set
-        df_contrib = (
-            pd.DataFrame(
-                [{"contributor": c, "num_issues": len(s)}
-                 for c, s in contrib_issues.items()])
-            .query("not contributor.str.contains(@self.BOT_REGEX, case=False)")
-            .sort_values("num_issues", ascending=False)
-            .reset_index(drop=True)
+        df_contrib = pd.DataFrame(
+            [{"contributor": c, "num_issues": len(s)} for c, s in contrib_issues.items()]
+        )
+
+        if not df_contrib.empty and "contributor" in df_contrib.columns:
+            df_contrib = (
+                df_contrib
+                .query("not contributor.str.contains(@self.BOT_REGEX, case=False)")
+                .sort_values("num_issues", ascending=False)
+                .reset_index(drop=True)
         )
 
         if df_contrib.empty:
