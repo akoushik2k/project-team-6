@@ -6,6 +6,7 @@
 - [Implementation](#Implementation)
 - [📁 Milestone&nbsp;1 Files](#-milestone-1-files)
 - [📁 Milestone&nbsp;2 Files](#-milestone-2-files)
+- [📁 Milestone&nbsp;3 Files](#-milestone-3-files)
 - [Setup](#setup)
   - [Install dependencies](#install-dependencies)
   - [‼️ mplcyberpunk ‼️ (fix)](#️-mplcyberpunk-️)
@@ -31,6 +32,10 @@ project-team-6/
 │   ├── cycle_time_analysis.py
 │   ├── top_twenty_analysis.py
 │   └── first_response_time.py
+├── analyses/           ← **feature‑specific testing module**
+│   ├── test_cycle_time_analysis.py
+│   ├── test_top_twenty_analysis.py
+│   └── test_first_response_time.py
 ├── config/             ← runtime config + secrets template
 ├── run.py              ← command‑line entry point (`--feature N`)
 ├── example_analysis.py ← simple demo / template (feature 0)
@@ -108,6 +113,14 @@ The following files have been created and submitted as part of Milestone 1:
 - `analysis/top_twenty_analysis.py` — Feature 2
 - `analysis/first_response_time_analysis.py` — Feature 3
 
+## 📁 Milestone 2 Files
+
+### Test Files
+
+- `tests/test_cycle_time_analysis.py` — Feature 1
+- `tests/test_top_twenty_analysis.py` — Feature 2
+- `tests/test_first_response_time_analysis.py` — Feature 3
+
 ---
 This is the template for the ENPM611 class project. Use this template in conjunction with the provided data to implement an application that analyzes GitHub issues for the [poetry](https://github.com/python-poetry/poetry/issues) Open Source project and generates interesting insights.
 
@@ -167,7 +180,25 @@ mpl.style.core.update_nested_dict(mpl.style.library, cyberpunk_stylesheets)
 
 Download the data file (in `json` format) from the project assignment in Canvas and update the `config.json` with the path to the file. Note, you can also specify an environment variable by the same name as the config setting (`ENPM611_PROJECT_DATA_PATH`) to avoid committing your personal path to the repository.
 
-### Run an analysis
+### Testing
+
+We use Python’s `unittest` and `coverage` to ensure at least 90% statement coverage for the `analysis/` modules.
+
+1. Install Coverage
+
+```bash
+pip install coverage
+```
+
+2. Run tests with coverage (tests reside in `test/`):
+```bash
+python -m coverage run -m unittest discover
+```
+3. View terminal coverage report (omit test files):
+```bash
+python3 -m coverage report -m --omit="test/*"
+```
+<!-- ### Run an analysis
 
 With everything set up, you should be able to run the existing example analysis:
 
@@ -209,4 +240,4 @@ python run.py --feature 3
 
 ![Image showing the response times in days - figure 1](./misc/3.1.png)
 ![Image showing the average response time by label - figure 2](./misc/3.2.png)
-![Image showing the average response time over a period - figure 3](./misc/3.3.png)
+![Image showing the average response time over a period - figure 3](./misc/3.3.png) -->
