@@ -113,7 +113,7 @@ The following files have been created and submitted as part of Milestone 1:
 - `analysis/top_twenty_analysis.py` — Feature 2
 - `analysis/first_response_time_analysis.py` — Feature 3
 
-## 📁 Milestone 2 Files
+## 📁 Milestone 3 Files
 
 ### Test Files
 
