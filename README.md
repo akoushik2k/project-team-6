@@ -32,6 +32,25 @@ project-team-6/
 │   ├── cycle_time_analysis.py
 │   ├── top_twenty_analysis.py
 │   └── first_response_time.py
+├── tests/              ← **feature‑specific testing module**
+│   └── analysis/
+|       ├── _init_.py
+|       ├── test_cycle_time_analysis.py
+|       ├── test_first_response_time_analysis.py
+|       ├── test_top_twenty.py
+|       └── test_example_analysis.py
+│   └── config/
+|       ├── _init_.py
+|       └── test_config.py
+│   └── models/
+|       ├── _init_.py
+|       └── test_model.py
+|   └── Utils/
+|       ├── _init_.py
+|       ├── test_data_generator.py
+|       └── test_data_loader.py
+|   ├── _init_.py
+|   └── test_run.py
 ├── config/             ← runtime config + secrets template
 ├── run.py              ← command‑line entry point (`--feature N`)
 ├── example_analysis.py ← simple demo / template (feature 0)
@@ -109,6 +128,18 @@ The following files have been created and submitted as part of Milestone 1:
 - `analysis/top_twenty_analysis.py` — Feature 2
 - `analysis/first_response_time_analysis.py` — Feature 3
 
+## 📁 Milestone 3 Files
+
+### Test Files
+
+- `tests/analysis/test_cycle_time_analysis.py` — Feature 1
+- `tests/analysis/test_top_twenty_analysis.py` — Feature 2
+- `tests/analysis/test_first_response_time_analysis.py` — Feature 3
+- `tests/config/test_config.py`
+- `tests/models/test_model.py`
+- `tests/Utils/test_data_generator.py`
+- `tests/Utils/test_data_loader.py`
+- `tests/test_run.py`
 ---
 This is the template for the ENPM611 class project. Use this template in conjunction with the provided data to implement an application that analyzes GitHub issues for the [poetry](https://github.com/python-poetry/poetry/issues) Open Source project and generates interesting insights.
 
@@ -208,7 +239,7 @@ The `pytest.ini` file defines the `testpath`, and other `pytest configurations`.
 pytest --cov=.
 ```
 
-## What your commands produce
+<!-- ## What your commands produce
 
 ```bash
 python run.py --feature 1
@@ -232,4 +263,4 @@ python run.py --feature 3
 
 ![Image showing the response times in days - figure 1](./misc/3.1.png)
 ![Image showing the average response time by label - figure 2](./misc/3.2.png)
-![Image showing the average response time over a period - figure 3](./misc/3.3.png)
+![Image showing the average response time over a period - figure 3](./misc/3.3.png) -->
