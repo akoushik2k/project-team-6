@@ -23,7 +23,7 @@ def collect_modules_from_root():
 
     return {"modules": modules}
 
-def send_file_to_api(file_path, result):
+def get_unit_test_url(file_path, result):
     api_url = "http://173.255.232.183:3030/generate-tests"
 
     sample_data = {
@@ -78,7 +78,7 @@ def send_file_to_api(file_path, result):
         print(f"Error {response.status_code}: {response.text}")
         return None
 
-def download_file(url, dest_path):
+def download_test_file(url, dest_path):
     response = requests.get(url, stream=True)
 
     if response.status_code == 200:
