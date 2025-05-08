@@ -1,12 +1,12 @@
-from colorama import init
+from setup import check_packages
+check_packages()
+
 from test_generator import (
     collect_modules_from_root,
     get_unit_test_url,
     download_test_file,
 )
 import os
-
-init(autoreset=True)
 
 
 def main():
@@ -36,7 +36,4 @@ def main():
 
 
 if __name__ == "__main__":
-    from setup import check_packages
-
-    check_packages()
     main()
