@@ -5,7 +5,7 @@ import pandas as pd
 from typing import List, Set
 from collections import Counter
 
-from Utils.data_loader import DataLoader
+from utils.data_loader import DataLoader
 from models.model import Issue, State
 
 

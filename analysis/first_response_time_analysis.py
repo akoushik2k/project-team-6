@@ -5,7 +5,7 @@ import mplcursors
 from typing import List
 
 from config import config
-from Utils.data_loader import DataLoader
+from utils.data_loader import DataLoader
 from models.model import Issue
 
 

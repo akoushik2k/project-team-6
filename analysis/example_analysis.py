@@ -1,10 +1,9 @@
-
 from typing import List
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-from Utils.data_loader import DataLoader
+from utils.data_loader import DataLoader
 from models.model import Issue,Event
 from config import config
 

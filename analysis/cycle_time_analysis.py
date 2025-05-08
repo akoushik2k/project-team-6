@@ -6,7 +6,7 @@ from typing import List
 import textwrap
 
 from config import config
-from Utils.data_loader import DataLoader
+from utils.data_loader import DataLoader
 from models.model import Issue, State
 
 
